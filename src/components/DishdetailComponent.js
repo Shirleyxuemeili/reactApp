@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardBody, CardText, CardTitle} from 'reactstrap';
 
     function RenderDish({dish}) {
-        console.log('Dishdetail rederDish invoked');
+        
         return(
             <div className="col-12 col-md-5 m-1">
                 <Card>
@@ -17,7 +17,7 @@ import { Card, CardImg, CardBody, CardText, CardTitle} from 'reactstrap';
     }
 
     function RenderComments({comments}) {
-        console.log('Dishdetail renderComments invoked');
+        
         const commentList = comments.map((comment) => {
             return(
                 <div key={comment.id}>
