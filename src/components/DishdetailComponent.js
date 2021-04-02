@@ -1,6 +1,7 @@
-import React from 'react';
-import { Card, CardImg, CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { useState } from 'react';
+import { Card, CardImg, CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 
     function RenderDish({dish}) {
         
@@ -13,6 +14,31 @@ import { Link } from 'react-router-dom';
                            <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card> 
+            </div>
+        );
+    }
+
+    function RenderCommentModal() {
+        const [isModalOpen,setModalOpen] = useState(false);
+
+        const toggleModal = () => {
+            setModalOpen(!setModalOpen);
+        };
+
+        return (
+            <div>
+                <button outline secondary onClick={setModalOpen} >
+                    <span className="fa fa-pencil fa-lg"></span> Submit Comment
+                </button>
+
+                <Modal isOpen={isModalOpen} >
+                    <ModalHeader toggle={toggleModal}>Submit Comment</ModalHeader>
+                    <ModalBody>
+                        
+                            
+                        <Button type="submit" value="submit" color="primary">Submit</Button>
+                    </ModalBody>
+                </Modal>
             </div>
         );
     }
@@ -34,6 +60,7 @@ import { Link } from 'react-router-dom';
             <div className = "col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 <ul className="list-unstyled">{commentList}</ul>
+                <RenderCommentModal />
             </div>
         );
     }
