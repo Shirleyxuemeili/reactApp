@@ -3,7 +3,6 @@ import { Card, CardImg, CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbIte
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
-const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
 
@@ -13,8 +12,9 @@ class CommentForm extends Component {
         super(props);
         this.state = {
             openModal: false
-        }
+        };
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     toggleModal() {
@@ -24,15 +24,14 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
-
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render () {
         return (
             <div>
-                <Button outline secondary onClick={this.toggleModal}>
+                <Button outline onClick={this.toggleModal}>
                     <span className="fa fa-pencil fa-lg"></span> Submit Comment
                 </Button>
                 <Modal isOpen={this.state.openModal} toggle={this.toggleModal}>
@@ -42,21 +41,20 @@ class CommentForm extends Component {
                                 <Row className="form-group">
                                     <Label htmlfor="rating" className="col-12">Rating</Label>
                                     <Col>
-                                        <Control.select model=".rating" className="form-control" name="rating">
+                                        <Control.select model=".rating" className="form-control" id="rating" name="rating">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
                                             <option>5</option>
                                         </Control.select>
-                                        
                                     </Col>
                                 </Row>
                                 <Row className="form-group">
                                     <Label htmlfor="author" className="col-12">Your Name</Label>
                                     <Col>
-                                        <Control.text model=".author" className="form-control" id="author" name="author" placeholder="Your Name" validators={{required, minLength: minLength(3), maxLength: maxLength(15)}} />
-                                        <Errors className="text-danger" model=".author" show="touched" messages={{required: 'Required', minLength: 'Must be greater than 2 characters', maxLength: 'Must be 15 characters and less'}} />
+                                        <Control.text model=".author" className="form-control" id="author" name="author" placeholder="Your Name" validators={{minLength: minLength(3), maxLength: maxLength(15)}} />
+                                        <Errors className="text-danger" model=".author" show="touched" messages={{ minLength: 'Must be greater than 2 characters', maxLength: 'Must be 15 characters and less'}} />
                                     </Col>
                                 </Row>
                                 <Row className="form-group">
@@ -71,7 +69,7 @@ class CommentForm extends Component {
                                     <Button type="submit" value="submit" color="primary">Submit</Button>
                                     </Col>
                                 </Row> 
-                            </LocalForm>`
+                            </LocalForm>
                     </ModalBody>
                 </Modal>
             </div>
@@ -94,7 +92,7 @@ class CommentForm extends Component {
         );
     }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
         
         const commentList = comments.map((comment) => {
             return(
@@ -111,7 +109,7 @@ class CommentForm extends Component {
             <div className = "col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 <ul className="list-unstyled">{commentList}</ul>
-                <CommentForm />
+                <CommentForm addComment={addComment} dishId={dishId} />
             </div>
         );
     }
@@ -139,7 +137,7 @@ class CommentForm extends Component {
                     </div>
                     <div class="row">
                         <RenderDish dish={props.dish} />
-                        <RenderComments comments={props.comments} />
+                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                     </div>  
                 </div>
                  
