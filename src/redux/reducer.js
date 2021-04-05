@@ -3,7 +3,7 @@ import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 
-//This is a reducer that contains four states. However, it is no longer be used because I have separated this reducer to four simpler and smaller reducers.
+//This is a reducer that contains four states. However, it is no longer beings used because I have separated this reducer to four simpler and smaller reducers.
 export const initialState = {
     dishes: DISHES,
     comments: COMMENTS,

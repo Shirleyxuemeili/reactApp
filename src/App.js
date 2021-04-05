@@ -7,8 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 const store = ConfigureStore();
 
+//<App>: the root component that renders <Main> and includes store
 class App extends Component {
-
 
   render() {
     return (

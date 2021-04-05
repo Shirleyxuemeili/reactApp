@@ -1,5 +1,6 @@
 import { COMMENTS } from '../shared/comments';
 import * as ActionTypes from './ActionTypes';
+//This is a reducer that only contains one state, comments
 
 export const Comments = (state = COMMENTS, action) => {
     switch (action.type) {
