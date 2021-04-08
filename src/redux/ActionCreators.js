@@ -39,8 +39,9 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     })
     .then(response => response.json())
     .then(response => dispatch(addComment(response)))
-    .catch(error => {console.log('Post comments ', error.message);} );
+    .catch(error => {console.log('Post comments ', error.message); alert('Thank you for your comment' + error.message);} );
 };
+
 
 //postFeedback() that takes a feedback form and save it to the server
 export const postFeedback =(firstname, lastname, telnum, email, agree, contactType, message) =>(dispatch) => {
@@ -77,9 +78,12 @@ export const postFeedback =(firstname, lastname, telnum, email, agree, contactTy
         throw error;
     })
     .then(response => response.json())
-    .then(response => dispatch(response))
-    .catch(error => {console.log(' ', error.message);} );
-
+    .then(response =>  {alert("Thank you for your feedback!\n" + JSON.stringify(response));})
+    .catch(error => {
+        console.log('Post feedbacks: ', error.message);
+        alert("Your feedback can not be posted" + error.message);
+    });
+    
 };
 
 //fetching dishes

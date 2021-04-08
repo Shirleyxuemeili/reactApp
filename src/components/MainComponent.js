@@ -34,10 +34,6 @@ const mapDispatchToProps = dispatch => ({
 //<Main> component: renders components for example <Home> <Header> <Footer> <Menu> <DishDetail> etc
 class Main extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     //this lifecycle method will be called everytime when the component is mounted
     componentDidMount() {
         this.props.fetchDishes();

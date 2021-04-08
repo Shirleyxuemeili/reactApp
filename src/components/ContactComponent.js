@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { Control, Form, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { FadeTransform } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -19,7 +20,6 @@ class Contact extends Component {
 
     handleSubmit(values) {
         console.log("Current State is: " + JSON.stringify(values));
-        alert("Thank you for your feedback! " + JSON.stringify(values));
         this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
         this.props.resetFeedbackForm();
     }
@@ -38,11 +38,12 @@ class Contact extends Component {
                         <hr />
                     </div>
                 </div>
-                <div className="row row-content">
-                    <div className="col-12">
-                    <h3>Location Information</h3>
-                    </div>
-                    <div className="col-12 col-sm-4 offset-sm-1">
+                <FadeTransform in transformProps={{exitTransform: 'scale(0.5) translateY(-50%)'}} >
+                    <div className="row row-content">
+                        <div className="col-12">
+                        <h3>Location Information</h3>
+                        </div>
+                        <div className="col-12 col-sm-4 offset-sm-1">
                             <h5>Our Address</h5>
                             <address>
                             121, Clear Water Bay Road<br />
@@ -52,18 +53,20 @@ class Contact extends Component {
                             <i className="fa fa-fax"></i>: +852 8765 4321<br />
                             <i className="fa fa-envelope"></i>: <a href="mailto:confusion@food.net">confusion@food.net</a>
                             </address>
-                    </div>
-                    <div className="col-12 col-sm-6 offset-sm-1">
-                        <h5>Map of our Location</h5>
-                    </div>
-                    <div className="col-12 col-sm-11 offset-sm-1">
-                        <div className="btn-group" role="group">
-                            <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
-                            <a role="button" className="btn btn-info"><i className="fa fa-skype"></i> Skype</a>
-                            <a role="button" className="btn btn-success" href="mailto:confusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
+                        </div>
+                        <div className="col-12 col-sm-6 offset-sm-1">
+                            <h5>Map of our Location</h5>
+                            <iframe title="location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.17908596155!2d114.28274575093975!3d22.309065848141287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404038194bfecc3%3A0x690e926322ef3ce4!2s121%20Clear%20Water%20Bay%20Rd%2C%20Clear%20Water%20Bay%2C%20Hong%20Kong!5e0!3m2!1sen!2sus!4v1617901596718!5m2!1sen!2sus" width="400" height="300" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div className="col-12 col-sm-11 offset-sm-1">
+                            <div className="btn-group" role="group">
+                                <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
+                                <a role="button" className="btn btn-info" href="skype:confusion?add"><i className="fa fa-skype"></i> Skype</a>
+                                <a role="button" className="btn btn-success" href="mailto:confusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </FadeTransform>
                 <div className="row row-content">
                     <div className="col-12">
                         <h3>Send us Your Feedback</h3>
@@ -72,11 +75,7 @@ class Contact extends Component {
                                 <Row className="form-group">
                                     <Label htmlfor="firstname" md={2}>First Name</Label>
                                     <Col md={10}>
-                                        <Control.text model=".firstname" className="form-control" id="firstname" name="firstname" placeholder="First Name"
-                                            validators={{
-                                                required,
-                                                minLength: minLength(3),
-                                                maxLength: maxLength(15)}} />
+                                        <Control.text model=".firstname" className="form-control" id="firstname" name="firstname" placeholder="First Name" validators={{required,minLength: minLength(3),maxLength: maxLength(15)}} />
                                         <Errors className="text-danger" model=".firstname" show="touched"
                                             messages={{
                                                 required: 'Required',
