@@ -44,26 +44,26 @@ class CommentForm extends Component {
                                 <Row className="form-group">
                                     <Label htmlfor="rating" className="col-12">Rating</Label>
                                     <Col>
-                                        <Control.select model=".rating" className="form-control" id="rating" name="rating">
+                                        <Control.Select model=".rating" className="form-control" id="rating" name="rating">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
                                             <option>5</option>
-                                        </Control.select>
+                                        </Control.Select>
                                     </Col>
                                 </Row>
                                 <Row className="form-group">
                                     <Label htmlfor="author" className="col-12">Your Name</Label>
                                     <Col>
-                                        <Control.text model=".author" className="form-control" id="author" name="author" placeholder="Your Name" validators={{minLength: minLength(3), maxLength: maxLength(15)}} />
+                                        <Control.Text model=".author" className="form-control" id="author" name="author" placeholder="Your Name" validators={{minLength: minLength(3), maxLength: maxLength(15)}} />
                                         <Errors className="text-danger" model=".author" show="touched" messages={{ minLength: 'Must be greater than 2 characters', maxLength: 'Must be 15 characters and less'}} />
                                     </Col>
                                 </Row>
                                 <Row className="form-group">
                                     <Label htmlfor="comment" className="col-12">Comment</Label>
                                     <Col>
-                                        <Control.textarea model=".comment" className="form-control col-12" id="comment" name="comment" rows="6" />
+                                        <Control.Textarea model=".comment" className="form-control col-12" id="comment" name="comment" rows="6" />
                                         <Errors class="text-danger" model=".comment" show="touched" />
                                     </Col>
                                 </Row>
